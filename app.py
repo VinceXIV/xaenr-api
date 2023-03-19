@@ -1,18 +1,18 @@
-from flask import Flask, render_template, url_for, request
-from flask_cors import CORS
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, support_credentials=True)
+
 
 
 @app.route('/get-match', methods=['POST'])
+@cross_origin(support_credentials=True)
 def index():
-    response = request
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "*")
-    response.headers.add("Access-Control-Allow-Methods", "*")
-    return request
+    # breakpoint()
+    response = request.get_json()
+    return jsonify({"what": response})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
