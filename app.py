@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from pybase64 import urlsafe_b64decode, b64decode
+from pybase64 import urlsafe_b64decode, b64decode, b64encode_as_string
 from io import BytesIO
 from PIL import Image
 import numpy as np
@@ -21,8 +21,16 @@ def index():
 
     ref_2darray = cvt_to_2darray(ref_ndarray, pick_last_value_in_list)
     test_2darrays = [cvt_to_2darray(s, pick_last_value_in_list) for s in test_ndarrays]
-    breakpoint()
-    return jsonify({"what": response})
+    image = Image.fromarray(ref_2darray)
+    image = image.resize((len(ref_ndarray), len(ref_ndarray[0])))
+    image = image.convert('L')
+    image.save("result.png")
+    image = open("./result.png", 'rb')
+    image = image.read()
+    # breakpoint()
+    response = b64encode_as_string(image)
+    # breakpoint()
+    return jsonify({"match": "data:image/png;base64,"+response})
 
 def get_b64string(s):
     return s.split(",")[1]
@@ -32,6 +40,7 @@ def pick_last_value_in_list(a_list):
 
 def get_image_ndarray(base64_image_string):
     image = Image.open(BytesIO(b64decode(base64_image_string)))
+    image = image.resize((28, 28))
     return np.array(image)
 
 def cvt_to_2darray(numpy_ndarray, func):
