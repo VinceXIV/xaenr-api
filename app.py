@@ -4,6 +4,7 @@ from pybase64 import urlsafe_b64decode, b64decode
 from io import BytesIO
 from PIL import Image
 import numpy as np
+import datetime
 
 from perspective_module import Perspective
 from associations_module import Associations
@@ -23,12 +24,30 @@ def index():
     ref_sample_b64 = request.get_json()['ref_sample']
     test_samples_b64 = [s for s in request.get_json()['test_samples']]
 
+    save_search([ref_sample_b64, test_samples_b64[0], test_samples_b64[1]])
+
     ref_ndarray = get_image_ndarray(get_b64string(ref_sample_b64))
     test_ndarrays = [get_image_ndarray(get_b64string(s)) for s in test_samples_b64]
 
     ref_2darray = cvt_to_2darray(ref_ndarray, pick_last_value_in_list)
     test_2darrays = [cvt_to_2darray(s, pick_last_value_in_list) for s in test_ndarrays]
     return jsonify(test_samples_b64[compare_samples(ref_2darray, test_2darrays)])
+
+def save_search(str_array):
+    current_time = datetime.datetime.now()
+    with open('./search_history.txt', 'w') as f:
+        f.write(str(current_time))
+        f.write("\n")
+        f.write("\n")
+
+        for b64_image_string in str_array:
+            f.write(b64_image_string)
+            f.write("\n")
+            f.write("\n")
+
+        f.write("\n")
+        f.write("\n")
+        f.write("\n")
 
 def get_b64string(s):
     return s.split(",")[1]
