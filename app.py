@@ -5,6 +5,10 @@ from io import BytesIO
 from PIL import Image
 import numpy as np
 
+from perspective_module import Perspective
+from associations_module import Associations
+from compare_module import Compare
+from sample_class_module import Sample
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
