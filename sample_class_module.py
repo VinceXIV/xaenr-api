@@ -8,12 +8,12 @@ import random
 
 
 class Sample:
-    def __init__(self, sample, description = "No description added"):
+    def __init__(self, sample, description = "No description available"):
         self.sample = sample
         self.description = description
        
     def summarize(self):
-        elementValues = self.getElementValues(sample=self.sample)
+        elementValues = self.getElementValues()
 
         f, xarr = plt.subplots(nrows=1, ncols=2)
         f.set_size_inches(w=7, h=3)
@@ -24,7 +24,7 @@ class Sample:
         xarr[1].boxplot(elementValues)
 
     def getElementsCount(self):
-        return len(self.getSampleElements(sample=self.sample))
+        return len(self.getSampleElements())
 
     def getSampleElements(self):
         sampleElements = []
