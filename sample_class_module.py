@@ -8,7 +8,7 @@ import random
 
 
 class Sample:
-    def __init__(self, sample, description):
+    def __init__(self, sample, description = "No description added"):
         self.sample = sample
         self.description = description
        
