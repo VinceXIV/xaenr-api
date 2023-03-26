@@ -6,7 +6,8 @@ from compare_module import Compare
 
 
 class Associations():
-    def __init__(self, sampleImage, sampleDigit, usePlainDataframes=True, includeDistance=False, includeDistanceBy="multiply", limitDistance=None, limitPixels=None, useRanks=False):
+    def __init__(self, sampleImage, usePlainDataframes=True, includeDistance=False,
+                    includeDistanceBy="multiply", limitDistance=None, limitPixels=None, useRanks=False):
 
         self.sampleImage = sampleImage
         self.includeDistance = includeDistance
@@ -14,7 +15,6 @@ class Associations():
         self.limitDistance = limitDistance
         self.limitPixels = limitPixels
         self.useRanks = useRanks
-        self.sampleDigit = sampleDigit
         self.usePlainDataframes = usePlainDataframes
 
         if(usePlainDataframes and includeDistance):
@@ -75,10 +75,7 @@ class Associations():
             raise ValueError("The element picked; ("+str(element[0])+", "+str(element[1])+"), is outside the sample space")
 
     def showSelfImage(self):
-        plt.imshow(self.sampleImage)   
-
-    def getSelfDigit(self):
-        return self.sampleDigit       
+        plt.imshow(self.sampleImage)     
 
     def compare(self, other, method="association", reference="self", useDistance="Average Cost"):
         # print("'method' argument in the compare method has been set to: "+str(method)+". method can be 'association' or 'perspective'")
