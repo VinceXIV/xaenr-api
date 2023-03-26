@@ -28,8 +28,7 @@ def index():
 
     ref_2darray = cvt_to_2darray(ref_ndarray, pick_last_value_in_list)
     test_2darrays = [cvt_to_2darray(s, pick_last_value_in_list) for s in test_ndarrays]
-    # breakpoint()
-    return jsonify(test_samples_b64[0])
+    return jsonify(test_samples_b64[compare_samples(ref_2darray, test_2darrays)])
 
 def get_b64string(s):
     return s.split(",")[1]
@@ -39,7 +38,7 @@ def pick_last_value_in_list(a_list):
 
 def get_image_ndarray(base64_image_string):
     image = Image.open(BytesIO(b64decode(base64_image_string)))
-    return np.array(image)
+    return np.array(image.resize((28, 28)))
 
 def cvt_to_2darray(numpy_ndarray, func):
     result = np.empty((len(numpy_ndarray), len(numpy_ndarray[0])))
@@ -50,6 +49,18 @@ def cvt_to_2darray(numpy_ndarray, func):
     
     return result
 
+def compare_samples(ref_2darray, test_2darrays):
+    ref_association = Associations(Sample(ref_2darray).convertToAngle())
+    test_1_association = Associations(Sample(test_2darrays[0]).convertToAngle())
+    test_2_association = Associations(Sample(test_2darrays[1]).convertToAngle())
+
+    comp1 = ref_association.compare(test_1_association)
+    comp2 = ref_association.compare(test_2_association)
+ 
+    dist1 = comp1.getAverageCost()
+    dist2 = comp2.getAverageCost()
+
+    return int(dist1 < dist2)
 
 if __name__ == "__main__":
     app.run()
