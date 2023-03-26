@@ -16,13 +16,16 @@ def index():
     ref_sample = get_b64string(request.get_json()['ref_sample'])
     test_samples = [get_b64string(s) for s in request.get_json()['test_samples']]
 
-    ref_ndarray = get_image_ndarray(ref_sample)
-    test_ndarrays = [get_image_ndarray(s) for s in test_samples]
+    ref_sample_b64 = request.get_json()['ref_sample']
+    test_samples_b64 = [s for s in request.get_json()['test_samples']]
+
+    ref_ndarray = get_image_ndarray(get_b64string(ref_sample_b64))
+    test_ndarrays = [get_image_ndarray(get_b64string(s)) for s in test_samples_b64]
 
     ref_2darray = cvt_to_2darray(ref_ndarray, pick_last_value_in_list)
     test_2darrays = [cvt_to_2darray(s, pick_last_value_in_list) for s in test_ndarrays]
-    breakpoint()
-    return jsonify({"what": response})
+    # breakpoint()
+    return jsonify(test_samples_b64[0])
 
 def get_b64string(s):
     return s.split(",")[1]
