@@ -110,7 +110,7 @@ class Sample:
         
         return elements
 
-    def convertToAngle(self, range_start, range_end, range_whole_number, thinify=False):
+    def convertToAngle(self, range_start=0, range_end=1, range_whole_number=False, thinify=False):
         nrows = int(self.sample.shape[0] - 1)
         ncols = int(self.sample.shape[1] - 1)
 
@@ -119,7 +119,7 @@ class Sample:
         if(not thinify):
             for row in range(nrows):
                 for col in range(ncols):
-                    item = self.__createItem(self.sample, row, col)
+                    item = self.__createItem(row, col, self.sample)
                     angle = self.__getAngle(item, range_start, range_end, range_whole_number)
 
                     result[row, col] = angle
@@ -127,7 +127,7 @@ class Sample:
             thinified = thin(self.sample).astype("float64")
             for row in range(nrows):
                 for col in range(ncols):
-                    item = self.__createItem(thinified, row, col)
+                    item = self.__createItem(row, col, thinified)
                     angle = self.__getAngle(item, range_start, range_end, range_whole_number)
 
                     result[row, col] = angle
@@ -139,11 +139,11 @@ class Sample:
 
         return result
 
-    def __createItem(self, row, col):
-        a = self.sample[row, col]
-        b = self.sample[row, col + 1]
-        c = self.sample[row + 1, col]
-        d = self.sample[row + 1, col + 1]
+    def __createItem(self, row, col, sample):
+        a = sample[row, col]
+        b = sample[row, col + 1]
+        c = sample[row + 1, col]
+        d = sample[row + 1, col + 1]
 
         result = np.array([a, b, c, d])
         return result.reshape(2, 2)
