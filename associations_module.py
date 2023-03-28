@@ -7,7 +7,7 @@ from compare_module import Compare
 
 class Associations():
     def __init__(self, sampleImage, usePlainDataframes=False, includeDistance=True,
-                    includeDistanceBy="multiply", limitDistance=10, limitPixels=None, useRanks=False):
+                    includeDistanceBy="multiply", limitDistance=30, limitPixels=None, useRanks=False):
 
         self.sampleImage = sampleImage
         self.includeDistance = includeDistance
