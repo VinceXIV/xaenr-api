@@ -57,7 +57,7 @@ def pick_last_value_in_list(a_list):
 
 def get_image_ndarray(base64_image_string):
     image = Image.open(BytesIO(b64decode(base64_image_string)))
-    return np.array(image.resize((28, 28)))
+    return np.array(image.resize((10, 10)))
 
 def cvt_to_2darray(numpy_ndarray, func):
     result = np.empty((len(numpy_ndarray), len(numpy_ndarray[0])))
