@@ -6,7 +6,7 @@ from compare_module import Compare
 
 
 class Associations():
-    def __init__(self, sampleImage, usePlainDataframes=False, includeDistance=True,
+    def __init__(self, sampleImage, usePlainDataframes=False, includeDistance=False,
                     includeDistanceBy="multiply", limitDistance=30, limitPixels=None, useRanks=False):
 
         self.sampleImage = sampleImage
@@ -77,7 +77,7 @@ class Associations():
     def showSelfImage(self):
         plt.imshow(self.sampleImage)     
 
-    def compare(self, other, method="association", reference="self", useDistance="Average Cost"):
+    def compare(self, other, method="perspective", reference="self", useDistance="Average Cost"):
         # print("'method' argument in the compare method has been set to: "+str(method)+". method can be 'association' or 'perspective'")
 
         if(reference == "small"):
