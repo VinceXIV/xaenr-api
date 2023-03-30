@@ -70,16 +70,16 @@ def cvt_to_2darray(numpy_ndarray, func):
 
 def compare_samples(ref_2darray, test_2darrays):
     ref_association = Associations(Sample(ref_2darray).convertToAngle())
-    test_1_association = Associations(sampleImage=Sample(test_2darrays[0]).convertToAngle(), usePlainDataframes=True, includeDistance=False, limitDistance=10)
-    test_2_association = Associations(sampleImage=Sample(test_2darrays[1]).convertToAngle(), usePlainDataframes=True, includeDistance=False, limitDistance=10)
+    test_1_association = Associations(sampleImage=Sample(test_2darrays[0]).convertToAngle(), usePlainDataframes=True, includeDistance=True, limitDistance=30)
+    test_2_association = Associations(sampleImage=Sample(test_2darrays[1]).convertToAngle(), usePlainDataframes=True, includeDistance=True, limitDistance=30)
 
     comp1 = ref_association.compare(test_1_association)
     comp2 = ref_association.compare(test_2_association)
 
     # breakpoint()
  
-    dist1 = comp1.getDistanceToNeighbors(reference='column')
-    dist2 = comp2.getDistanceToNeighbors(reference='column')
+    dist1 = comp1.getDistanceToNeighbors()
+    dist2 = comp2.getDistanceToNeighbors()
 
     return int(dist1 < dist2)
 
