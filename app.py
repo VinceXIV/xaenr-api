@@ -69,9 +69,9 @@ def cvt_to_2darray(numpy_ndarray, func):
     return result
 
 def compare_samples(ref_2darray, test_2darrays):
-    ref_association = Associations(Sample(ref_2darray).convertToAngle())
-    test_1_association = Associations(sampleImage=Sample(test_2darrays[0]).convertToAngle(), usePlainDataframes=True, includeDistance=True, limitDistance=30)
-    test_2_association = Associations(sampleImage=Sample(test_2darrays[1]).convertToAngle(), usePlainDataframes=True, includeDistance=True, limitDistance=30)
+    ref_association = Associations(Sample(ref_2darray).convertToAngle(), includeDistance=False, limitDistance=30)
+    test_1_association = Associations(sampleImage=Sample(test_2darrays[0]).convertToAngle(), includeDistance=False, limitDistance=30)
+    test_2_association = Associations(sampleImage=Sample(test_2darrays[1]).convertToAngle(), includeDistance=False, limitDistance=30)
 
     comp1 = ref_association.compare(test_1_association)
     comp2 = ref_association.compare(test_2_association)
