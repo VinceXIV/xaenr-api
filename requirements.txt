@@ -18,6 +18,7 @@ networkx==3.0
 numpy==1.24.2
 packaging==23.0
 pandas==1.5.3
+patsy==0.5.3
 Pillow==9.4.0
 pybase64==1.2.3
 pyparsing==3.0.9
@@ -28,6 +29,7 @@ scikit-image==0.20.0
 scipy==1.9.1
 six==1.16.0
 SQLAlchemy==2.0.7
+statsmodels==0.13.5
 tifffile==2023.3.21
 typing_extensions==4.5.0
 Werkzeug==2.2.3
