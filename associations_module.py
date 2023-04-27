@@ -81,14 +81,14 @@ class Associations():
         # print("'method' argument in the compare method has been set to: "+str(method)+". method can be 'association' or 'perspective'")
 
         if(reference == "small"):
-            if (len(self.angleDataframe) < len(other.angleDataframe)):
+            if (len(self.perspectives) < len(other.perspectives)):
                 reference = "self"
-            elif (len(self.angleDataframe) > len(other.angleDataframe)):
+            elif (len(self.perspectives) > len(other.perspectives)):
                 reference = "other"
         elif(reference == "big"):
-            if (len(self.angleDataframe) > len(other.angleDataframe)):
+            if (len(self.perspectives) > len(other.perspectives)):
                 reference = "self"
-            elif (len(self.angleDataframe) < len(other.angleDataframe)):
+            elif (len(self.perspectives) < len(other.perspectives)):
                 reference = "other" 
 
         
