@@ -110,7 +110,7 @@ class Sample:
         
         return elements
 
-    def convertToAngle(self, range_start=0, range_end=1, range_whole_number=False, thinify=False):
+    def convertToAngle(self, range_start=0, range_end=1, range_whole_number=False, thinify=True):
         nrows = int(self.sample.shape[0] - 1)
         ncols = int(self.sample.shape[1] - 1)
 
