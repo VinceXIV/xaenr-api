@@ -3,6 +3,7 @@ import pandas as pd
 import math
 import copy
 import matplotlib.pyplot as plt
+from transformation_module import Transformation
 from scipy.optimize import linear_sum_assignment
 
 class Compare:
@@ -11,7 +12,13 @@ class Compare:
         self.nrows = len(comparisonDataframe)
         self.comparisonDataframe = self.__replaceNanWithWorst(comparisonDataframe)
         self.cost = self.__makeSquared(self.__replaceNanWithWorst(comparisonDataframe))
-        self.row_match, self.col_match = self.__getMatchDict()        
+        self.row_match, self.col_match = self.__getMatchDict()    
+
+    def getTransformation(self, match = 'col'):
+        if(match == 'col'):
+            return Transformation(self.col_match)
+        elif(match == 'row'):
+            return Transformation(self.row_match)    
 
     def showMatch(self, reference="row", method="Total Distance"):
         # print("Currently using reference='"+reference+"', method='"+method+"'. reference can be 'big', 'row', or 'col'. On the other hand, method can be 'Total Distance', 'Average Distance', or 'Median Distance'")
